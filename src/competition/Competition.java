@@ -248,6 +248,7 @@ public class Competition {
 		}
 		return matrix;
 	}
+
 	/**
 	 * 输出case4的矩阵 (41*1)
 	 * 
@@ -262,6 +263,7 @@ public class Competition {
 		}
 		return matrix;
 	}
+
 	/**
 	 * 输出case5的矩阵 (5_3__4)
 	 * 
@@ -282,6 +284,7 @@ public class Competition {
 		}
 		return matrix;
 	}
+
 	/**
 	 * 输出case6的矩阵 (9____10_____3)
 	 * 
@@ -302,6 +305,7 @@ public class Competition {
 		}
 		return matrix;
 	}
+
 	/**
 	 * 输出case7的矩阵 (3___4_12_____3_____10____9)
 	 * 
@@ -331,6 +335,7 @@ public class Competition {
 		}
 		return matrix;
 	}
+
 	/**
 	 * Terminal终端控制
 	 * 
