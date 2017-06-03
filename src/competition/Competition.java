@@ -21,77 +21,6 @@ public class Competition {
 	private static Terminal terminal;
 
 	/**
-	 * 初始化生命矩阵
-	 * 
-	 * @param row
-	 *            矩阵行
-	 * @param col
-	 *            矩阵列
-	 * @return 初始化二维数组
-	 * @exception Exception
-	 * 
-	 * @author Victorz & Hollandxp
-	 * 
-	 * @Time2017-6-3
-	 */
-	public static int[][] Init(int row, int col) throws Exception {
-		if (row <= 0 || col <= 0) {
-			throw new Exception("Invalid param in Init()");
-		}
-		int[][] array = new int[row][col];
-		return array;
-	}
-
-	/**
-	 * 对矩阵具体位置赋值
-	 * 
-	 * @param array
-	 *            生命矩阵
-	 * @param i
-	 *            需要改变的矩阵行坐标值
-	 * @param j
-	 *            需要改变的矩阵列坐标值
-	 * @return 经过更改赋值生命的矩阵
-	 * @author Victorz & Hollandxp
-	 * 
-	 * @Time2017-6-3
-	 */
-	public static int[][] PutDot(int[][] array, int i, int j) {
-		array[i][j] = 1;
-		return array;
-	}
-
-	/**
-	 * 对矩阵具体位置赋值
-	 * 
-	 * @param array
-	 *            生命矩阵
-	 * @param i
-	 *            需要改变的矩阵行坐标值
-	 * @param j
-	 *            需要改变的矩阵列坐标值
-	 * @return 经过更改赋值生命的矩阵
-	 * @author Victorz & Hollandxp
-	 * 
-	 * @Time2017-6-3
-	 */
-	public static int[][] RandomInit(int[][] array, int row, int col, int number) {
-		for (int n = 0; n < number; n++) {
-			Random random_row = new Random();
-			Random random_col = new Random();
-			random_row.setSeed(System.currentTimeMillis());
-			random_col.setSeed(System.currentTimeMillis() / 2);
-			int i = random_row.nextInt(row);
-			int j = random_col.nextInt(col);
-			if (array[i][j] == 0)
-				array = PutDot(array, i, j);
-			else
-				n--;
-		}
-		return array;
-	}
-
-	/**
 	 * 更新生命状态
 	 * 
 	 * @param array
@@ -349,11 +278,11 @@ public class Competition {
 		int rows = 10, cols = 10, number = 50;
 		int delay = 200;
 		int type = 0;
-		int[][] matrix = new int[1][1];
+		int[][] matrix = null;
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("=========================================================");
 		System.out.println("===================The Game of Life======================");
-		System.out.println("Please Choose Mode:");
+		System.out.println("Please Choose Case:");
 		System.out.println("1.(3*1)");
 		System.out.println("2.(10*1)");
 		System.out.println("3.(33*1)");
@@ -366,24 +295,15 @@ public class Competition {
 		type = scanner.nextInt();
 		switch (type) {
 		case 1: {
-			rows = 7;
-			cols = 7;
-			delay = 200;
-			matrix = Generate1Matrix();
+			matrix = CaseFactory.InitMatrixFromFile("case/case1.txt");
 			break;
 		}
 		case 2: {
-			rows = 28;
-			cols = 14;
-			delay = 500;
-			matrix = Generate2Matrix();
+			matrix = CaseFactory.InitMatrixFromFile("case/case2.txt");
 			break;
 		}
 		case 3: {
-			rows = 100;
-			cols = 50;
-			delay = 100;
-			matrix = Generate3Matrix();
+			matrix = CaseFactory.InitMatrixFromFile("case/case3.txt");
 			break;
 		}
 		case 4: {
@@ -391,6 +311,7 @@ public class Competition {
 			cols = 50;
 			delay = 100;
 			matrix = Generate4Matrix();
+			// matrix = CaseFactory.InitMatrixFromFile("case/case4.txt");
 			break;
 		}
 		case 5: {
@@ -398,6 +319,7 @@ public class Competition {
 			cols = 50;
 			delay = 100;
 			matrix = Generate5Matrix();
+			matrix = CaseFactory.InitMatrixFromFile("case/case5.txt");
 			break;
 		}
 		case 6: {
@@ -405,6 +327,7 @@ public class Competition {
 			cols = 50;
 			delay = 100;
 			matrix = Generate6Matrix();
+			matrix = CaseFactory.InitMatrixFromFile("case/case6.txt");
 			break;
 		}
 		case 7: {
@@ -412,6 +335,7 @@ public class Competition {
 			cols = 100;
 			delay = 100;
 			matrix = Generate7Matrix();
+			matrix = CaseFactory.InitMatrixFromFile("case/case7.txt");
 			break;
 		}
 		case 8: {
@@ -423,11 +347,16 @@ public class Competition {
 			number = scanner.nextInt();
 			System.out.print("Please input the delay time of each refresh (ms):");
 			delay = scanner.nextInt();
-			matrix = Init(rows, cols);
-			matrix = RandomInit(matrix, rows, cols, number);
+			matrix = CaseFactory.UserDefineMatrix(rows, cols, number, delay);
 			break;
 		}
 		}
+		//
+		// rows = CaseFactory.rows;
+		// cols = CaseFactory.cols;
+		// number = CaseFactory.number;
+		// delay = CaseFactory.delay;
+
 		scanner.close();
 		// create the terminal
 		terminal = TerminalFacade.createSwingTerminal(rows, cols);
@@ -445,6 +374,8 @@ public class Competition {
 
 		while (true) {
 			try {
+				// Print(matrix, rows, cols);
+
 				Disp(matrix, rows, cols);
 				Thread.sleep(delay);
 				terminal.clearScreen();

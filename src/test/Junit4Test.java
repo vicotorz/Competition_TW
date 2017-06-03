@@ -2,6 +2,7 @@ package test;
 
 import org.junit.Test;
 
+import competition.CaseFactory;
 import competition.Competition;
 
 public class Junit4Test {
@@ -9,7 +10,7 @@ public class Junit4Test {
 	// ≤‚ ‘≥ı ºªØ
 	@Test
 	public void Init_Test() throws Exception {
-		int[][] matrix = Competition.Init(10, 10);
+		int[][] matrix = CaseFactory.Init(10, 10);
 		int[][] answer = new int[10][10];
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
@@ -23,10 +24,10 @@ public class Junit4Test {
 	@Test
 	public void Test_Pot() throws Exception {
 		int[][] answer = new int[10][10];
-		int[][] matrix = Competition.Init(10, 10);
-		matrix = Competition.PutDot(matrix, 1, 1);
-		matrix = Competition.PutDot(matrix, 2, 5);
-		matrix = Competition.PutDot(matrix, 6, 7);
+		int[][] matrix = CaseFactory.Init(10, 10);
+		matrix = CaseFactory.PutDot(matrix, 1, 1);
+		matrix = CaseFactory.PutDot(matrix, 2, 5);
+		matrix = CaseFactory.PutDot(matrix, 6, 7);
 		answer[1][1] = 1;
 		answer[2][5] = 1;
 		answer[6][7] = 1;
@@ -46,11 +47,11 @@ public class Junit4Test {
 		answer[1][2] = 1;
 		answer[2][1] = 1;
 		answer[2][2] = 1;
-		int[][] matrix = Competition.Init(4, 4);
-		matrix = Competition.PutDot(matrix, 1, 1);
-		matrix = Competition.PutDot(matrix, 1, 2);
-		matrix = Competition.PutDot(matrix, 2, 1);
-		matrix = Competition.PutDot(matrix, 2, 2);
+		int[][] matrix = CaseFactory.Init(4, 4);
+		matrix = CaseFactory.PutDot(matrix, 1, 1);
+		matrix = CaseFactory.PutDot(matrix, 1, 2);
+		matrix = CaseFactory.PutDot(matrix, 2, 1);
+		matrix = CaseFactory.PutDot(matrix, 2, 2);
 
 		matrix = Competition.Update(matrix, 4, 4);
 		for (int i = 0; i < 4; i++) {
@@ -64,11 +65,11 @@ public class Junit4Test {
 	@Test
 	public void Test_DeadResult() throws Exception {
 		int[][] answer = new int[4][4];
-		int[][] matrix = Competition.Init(4, 4);
-		matrix = Competition.PutDot(matrix, 0, 0);
-		matrix = Competition.PutDot(matrix, 0, 3);
-		matrix = Competition.PutDot(matrix, 3, 0);
-		matrix = Competition.PutDot(matrix, 3, 3);
+		int[][] matrix = CaseFactory.Init(4, 4);
+		matrix = CaseFactory.PutDot(matrix, 0, 0);
+		matrix = CaseFactory.PutDot(matrix, 0, 3);
+		matrix = CaseFactory.PutDot(matrix, 3, 0);
+		matrix = CaseFactory.PutDot(matrix, 3, 3);
 
 		matrix = Competition.Update(matrix, 4, 4);
 		for (int i = 0; i < 4; i++) {
