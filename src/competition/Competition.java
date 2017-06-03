@@ -101,11 +101,11 @@ public class Competition {
 				if (matrix[i][j] == 0) {
 					terminal.applyForegroundColor(Terminal.Color.RED);
 					terminal.moveCursor(i, j);
-					terminal.putCharacter('△');
+					terminal.putCharacter(' ');
 				} else {
-					terminal.applyForegroundColor(Terminal.Color.GREEN);
+					terminal.applyForegroundColor(Terminal.Color.BLACK);
 					terminal.moveCursor(i, j);
-					terminal.putCharacter('▲');
+					terminal.putCharacter('*');
 				}
 			}
 		}
@@ -127,142 +127,13 @@ public class Competition {
 	public static void Print(int[][] matrix, int row, int col) {
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
-				System.out.print(matrix[i][j] + " ");
+				if (matrix[i][j] == 1)
+					System.out.print('*');
+				else
+					System.out.print(' ');
 			}
 			System.out.println();
 		}
-	}
-
-	/**
-	 * 输出case1的矩阵 (3*1)
-	 * 
-	 * @author Victorz & Hollandxp
-	 * 
-	 * @Time2017-6-3
-	 */
-	public static int[][] Generate1Matrix() {
-		int[][] matrix = new int[7][7];
-		for (int i = 2; i < 5; i++) {
-			matrix[3][i] = 1;
-		}
-		return matrix;
-	}
-
-	/**
-	 * 输出case2的矩阵 (10*1)
-	 * 
-	 * @author Victorz & Hollandxp
-	 * 
-	 * @Time2017-6-3
-	 */
-	public static int[][] Generate2Matrix() {
-		int[][] matrix = new int[28][14];
-		for (int i = 2; i < 12; i++) {
-			matrix[14][i] = 1;
-		}
-		return matrix;
-	}
-
-	/**
-	 * 输出case3的矩阵 (33*1)
-	 * 
-	 * @author Victorz & Hollandxp
-	 * 
-	 * @Time2017-6-3
-	 */
-	public static int[][] Generate3Matrix() {
-		int[][] matrix = new int[100][50];
-		for (int i = 9; i < 42; i++) {
-			matrix[50][i] = 1;
-		}
-		return matrix;
-	}
-
-	/**
-	 * 输出case4的矩阵 (41*1)
-	 * 
-	 * @author Victorz & Hollandxp
-	 * 
-	 * @Time2017-6-3
-	 */
-	public static int[][] Generate4Matrix() {
-		int[][] matrix = new int[100][50];
-		for (int i = 3; i < 45; i++) {
-			matrix[50][i] = 1;
-		}
-		return matrix;
-	}
-
-	/**
-	 * 输出case5的矩阵 (5_3__4)
-	 * 
-	 * @author Victorz & Hollandxp
-	 * 
-	 * @Time2017-6-3
-	 */
-	public static int[][] Generate5Matrix() {
-		int[][] matrix = new int[100][50];
-		for (int i = 18; i < 23; i++) {
-			matrix[50][i] = 1;
-		}
-		for (int i = 24; i < 27; i++) {
-			matrix[50][i] = 1;
-		}
-		for (int i = 29; i < 33; i++) {
-			matrix[50][i] = 1;
-		}
-		return matrix;
-	}
-
-	/**
-	 * 输出case6的矩阵 (9____10_____3)
-	 * 
-	 * @author Victorz & Hollandxp
-	 * 
-	 * @Time2017-6-3
-	 */
-	public static int[][] Generate6Matrix() {
-		int[][] matrix = new int[50][50];
-		for (int i = 9; i < 18; i++) {
-			matrix[25][i] = 1;
-		}
-		for (int i = 22; i < 32; i++) {
-			matrix[25][i] = 1;
-		}
-		for (int i = 37; i < 40; i++) {
-			matrix[25][i] = 1;
-		}
-		return matrix;
-	}
-
-	/**
-	 * 输出case7的矩阵 (3___4_12_____3_____10____9)
-	 * 
-	 * @author Victorz & Hollandxp
-	 * 
-	 * @Time2017-6-3
-	 */
-	public static int[][] Generate7Matrix() {
-		int[][] matrix = new int[30][100];
-		for (int i = 19; i < 22; i++) {
-			matrix[15][i] = 1;
-		}
-		for (int i = 25; i < 29; i++) {
-			matrix[15][i] = 1;
-		}
-		for (int i = 30; i < 42; i++) {
-			matrix[15][i] = 1;
-		}
-		for (int i = 47; i < 50; i++) {
-			matrix[15][i] = 1;
-		}
-		for (int i = 55; i < 65; i++) {
-			matrix[15][i] = 1;
-		}
-		for (int i = 70; i < 79; i++) {
-			matrix[15][i] = 1;
-		}
-		return matrix;
 	}
 
 	/**
@@ -293,52 +164,11 @@ public class Competition {
 		System.out.println("8.User-defined");
 		System.out.print("Your choice is :");
 		type = scanner.nextInt();
-		switch (type) {
-		case 1: {
-			matrix = CaseFactory.InitMatrixFromFile("case/case1.txt");
-			break;
-		}
-		case 2: {
-			matrix = CaseFactory.InitMatrixFromFile("case/case2.txt");
-			break;
-		}
-		case 3: {
-			matrix = CaseFactory.InitMatrixFromFile("case/case3.txt");
-			break;
-		}
-		case 4: {
-			rows = 100;
-			cols = 50;
-			delay = 100;
-			matrix = Generate4Matrix();
-			// matrix = CaseFactory.InitMatrixFromFile("case/case4.txt");
-			break;
-		}
-		case 5: {
-			rows = 100;
-			cols = 50;
-			delay = 100;
-			matrix = Generate5Matrix();
-			matrix = CaseFactory.InitMatrixFromFile("case/case5.txt");
-			break;
-		}
-		case 6: {
-			rows = 50;
-			cols = 50;
-			delay = 100;
-			matrix = Generate6Matrix();
-			matrix = CaseFactory.InitMatrixFromFile("case/case6.txt");
-			break;
-		}
-		case 7: {
-			rows = 30;
-			cols = 100;
-			delay = 100;
-			matrix = Generate7Matrix();
-			matrix = CaseFactory.InitMatrixFromFile("case/case7.txt");
-			break;
-		}
-		case 8: {
+
+		if (type != 8) {
+			String str = "case/case" + String.valueOf(type) + ".txt";
+			matrix = CaseFactory.InitMatrixFromFile(str);
+		} else {
 			System.out.print("Please input the row of the matrix:");
 			rows = scanner.nextInt();
 			System.out.print("Please input the col of the matrix:");
@@ -348,23 +178,21 @@ public class Competition {
 			System.out.print("Please input the delay time of each refresh (ms):");
 			delay = scanner.nextInt();
 			matrix = CaseFactory.UserDefineMatrix(rows, cols, number, delay);
-			break;
-		}
-		}
-		//
-		// rows = CaseFactory.rows;
-		// cols = CaseFactory.cols;
-		// number = CaseFactory.number;
-		// delay = CaseFactory.delay;
 
+		}
 		scanner.close();
+		rows = CaseFactory.rows;
+		cols = CaseFactory.cols;
+		number = CaseFactory.number;
+		delay = CaseFactory.delay;
+
 		// create the terminal
 		terminal = TerminalFacade.createSwingTerminal(rows, cols);
 
 		// required by Lanterna framework to initialise
 		terminal.enterPrivateMode();
 		terminal.setCursorVisible(false);
-
+		terminal.applyBackgroundColor(Terminal.Color.WHITE);
 		terminal.clearScreen();
 
 		// set close operation so program with exit if "X" clicked
