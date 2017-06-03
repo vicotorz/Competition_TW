@@ -6,9 +6,9 @@ import competition.Competition;
 
 public class Junit4Test {
 
-	// ≤‚ ‘
+	// ≤‚ ‘≥ı ºªØ
 	@Test
-	public void Init_Test() {
+	public void Init_Test() throws Exception {
 		int[][] matrix = Competition.Init(10, 10);
 		int[][] answer = new int[10][10];
 		for (int i = 0; i < 10; i++) {
@@ -21,7 +21,7 @@ public class Junit4Test {
 
 	// ≤‚ ‘≈◊µ„
 	@Test
-	public void Test_Pao() {
+	public void Test_Pot() throws Exception {
 		int[][] answer = new int[10][10];
 		int[][] matrix = Competition.Init(10, 10);
 		matrix = Competition.PutDot(matrix, 1, 1);
@@ -32,15 +32,15 @@ public class Junit4Test {
 		answer[6][7] = 1;
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				assert matrix[i][j] == answer[i][j] : "Init_Test assertion failed!";
+				assert matrix[i][j] == answer[i][j] : "Test_Pot assertion failed!";
 			}
 		}
 
 	}
 
-	// ≤‚ ‘æ≤Ã¨—›±‰
+	// ≤‚ ‘æ≤Ã¨—›±‰£®…˙¥Ê«Èøˆ£©
 	@Test
-	public void TestResult() {
+	public void Test_Result() throws Exception {
 		int[][] answer = new int[4][4];
 		answer[1][1] = 1;
 		answer[1][2] = 1;
@@ -55,13 +55,14 @@ public class Junit4Test {
 		matrix = Competition.Update(matrix, 4, 4);
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				assert matrix[i][j] == answer[i][j] : "Init_Test assertion failed!";
+				assert matrix[i][j] == answer[i][j] : "Test_Result assertion failed!";
 			}
 		}
 	}
 
+	// ≤‚ ‘æ≤Ã¨…˙√¸—›±‰£®À¿Õˆ«Èøˆ£©
 	@Test
-	public void TestDeadResult() {
+	public void Test_DeadResult() throws Exception {
 		int[][] answer = new int[4][4];
 		int[][] matrix = Competition.Init(4, 4);
 		matrix = Competition.PutDot(matrix, 0, 0);
@@ -72,23 +73,26 @@ public class Junit4Test {
 		matrix = Competition.Update(matrix, 4, 4);
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				assert matrix[i][j] == answer[i][j] : "Init_Test assertion failed!";
+				assert matrix[i][j] == answer[i][j] : "Test_DeadResult assertion failed!";
 			}
 		}
 	}
 
-	// ≤‚ ‘ÀÊº¥—›±‰
+	// ≤‚ ‘≈–∂œ∫Ø ˝
 	@Test
-	public void Update_Test() {
-		System.out.println("===≥ı ºªØ===");
-		int[][] matrix = Competition.Init(3, 5);
-		Competition.Print(matrix, 3, 5);
-		System.out.println("======");
-		matrix = Competition.Update(matrix, 3, 5);
-		Competition.Print(matrix, 3, 5);
-		System.out.println("======");
-		matrix = Competition.Update(matrix, 3, 5);
-		Competition.Print(matrix, 3, 5);
+	public void Test_Judge() {
+		int[][] answer = new int[6][6];
+		answer[1][4] = 1;
+		answer[2][2] = 1;
+		answer[3][2] = 1;
+		answer[3][3] = 1;
+		answer[4][1] = 1;
+		assert Competition.Judge(answer, 1, 4) == 0 : "Test_Judge assertion failed!";
+		assert Competition.Judge(answer, 2, 2) == 1 : "Test_Judge assertion failed!";
+		assert Competition.Judge(answer, 3, 2) == 1 : "Test_Judge assertion failed!";
+		assert Competition.Judge(answer, 3, 3) == 1 : "Test_Judge assertion failed!";
+		assert Competition.Judge(answer, 4, 1) == 0 : "Test_Judge assertion failed!";
+
 	}
 
 }

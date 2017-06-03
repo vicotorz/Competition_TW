@@ -1,6 +1,7 @@
 package competition;
 
 import java.util.Random;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 
@@ -9,29 +10,77 @@ import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.SwingTerminal;
 
 /**
- * 题目要求： 实现核心逻辑 用户界面展示结果 控制速度 单元测试
+ * ThoughtWorks 结对编程武汉赛区 第五组 “生命游戏程序”
+ * 
+ * @author Victorz & Hollandxp
+ * 
+ * @Time 2017-6-3
+ * 
  */
 public class Competition {
 	private static Terminal terminal;
 
-	public static int[][] Init(int row, int col) {
+	/**
+	 * 初始化生命矩阵
+	 * 
+	 * @param row
+	 *            矩阵行
+	 * @param col
+	 *            矩阵列
+	 * @return 初始化二维数组
+	 * @exception Exception
+	 * 
+	 * @author Victorz & Hollandxp
+	 * 
+	 * @Time2017-6-3
+	 */
+	public static int[][] Init(int row, int col) throws Exception {
+		if (row <= 0 || col <= 0) {
+			throw new Exception("Invalid param in Init()");
+		}
 		int[][] array = new int[row][col];
 		return array;
 	}
 
+	/**
+	 * 对矩阵具体位置赋值
+	 * 
+	 * @param array
+	 *            生命矩阵
+	 * @param i
+	 *            需要改变的矩阵行坐标值
+	 * @param j
+	 *            需要改变的矩阵列坐标值
+	 * @return 经过更改赋值生命的矩阵
+	 * @author Victorz & Hollandxp
+	 * 
+	 * @Time2017-6-3
+	 */
 	public static int[][] PutDot(int[][] array, int i, int j) {
 		array[i][j] = 1;
 		return array;
 	}
 
-	// 初始化矩阵
+	/**
+	 * 对矩阵具体位置赋值
+	 * 
+	 * @param array
+	 *            生命矩阵
+	 * @param i
+	 *            需要改变的矩阵行坐标值
+	 * @param j
+	 *            需要改变的矩阵列坐标值
+	 * @return 经过更改赋值生命的矩阵
+	 * @author Victorz & Hollandxp
+	 * 
+	 * @Time2017-6-3
+	 */
 	public static int[][] RandomInit(int[][] array, int row, int col, int number) {
 		for (int n = 0; n < number; n++) {
 			Random random_row = new Random();
 			Random random_col = new Random();
 			random_row.setSeed(System.currentTimeMillis());
 			random_col.setSeed(System.currentTimeMillis() / 2);
-			// System.out.println(n);
 			int i = random_row.nextInt(row);
 			int j = random_col.nextInt(col);
 			if (array[i][j] == 0)
@@ -42,7 +91,20 @@ public class Competition {
 		return array;
 	}
 
-	// 更新当前矩阵
+	/**
+	 * 更新生命状态
+	 * 
+	 * @param array
+	 *            生命矩阵
+	 * @param row
+	 *            矩阵行数
+	 * @param col
+	 *            矩阵列数
+	 * @return 声明演化后的矩阵
+	 * @author Victorz & Hollandxp
+	 * 
+	 * @Time2017-6-3
+	 */
 	public static int[][] Update(int[][] array, int row, int col) {
 		int[][] current = new int[row][col];// 当前状态
 		int[][] temp = new int[row + 2][col + 2];
@@ -53,14 +115,27 @@ public class Competition {
 		}
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
-				current[i][j] = Judge(temp, row, col, i + 1, j + 1);
+				current[i][j] = Judge(temp, i + 1, j + 1);
 			}
 		}
 		return current;
 	}
 
-	// 判断每个格子生命
-	public static int Judge(int[][] array, int row, int col, int i, int j) {
+	/**
+	 * 判断传入位置的生命状态
+	 * 
+	 * @param array
+	 *            生命矩阵
+	 * @param i
+	 *            行参数
+	 * @param j
+	 *            列参数
+	 * @return 演化判断后位置的生命状态
+	 * @author Victorz & Hollandxp
+	 * 
+	 * @Time2017-6-3
+	 */
+	public static int Judge(int[][] array, int i, int j) {
 		int status = 0;
 		status = array[i - 1][j - 1] + array[i - 1][j] + array[i - 1][j + 1] + array[i][j - 1] + array[i][j + 1]
 				+ array[i + 1][j - 1] + array[i + 1][j] + array[i + 1][j + 1];
@@ -78,7 +153,19 @@ public class Competition {
 		}
 	}
 
-	// 打印
+	/**
+	 * Terminal上显示状态
+	 * 
+	 * @param maxtrix
+	 *            生命矩阵
+	 * @param row
+	 *            矩阵行
+	 * @param col
+	 *            矩阵列
+	 * @author Victorz & Hollandxp
+	 * 
+	 * @Time2017-6-3
+	 */
 	public static void Disp(int[][] matrix, int row, int col) {
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
@@ -95,7 +182,19 @@ public class Competition {
 		}
 	}
 
-	// 显示到屏幕
+	/**
+	 * 输出矩阵0-1状态
+	 * 
+	 * @param maxtrix
+	 *            生命矩阵
+	 * @param row
+	 *            矩阵行
+	 * @param col
+	 *            矩阵列
+	 * @author Victorz & Hollandxp
+	 * 
+	 * @Time2017-6-3
+	 */
 	public static void Print(int[][] matrix, int row, int col) {
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
@@ -105,27 +204,228 @@ public class Competition {
 		}
 	}
 
-	public static void main(String[] args) {
-		int rows = 10, cols = 10, number = 50;
-		int delay = 1000;
-		if (args.length == 3) {
-			rows = Integer.valueOf(args[0]);
-			cols = Integer.valueOf(args[1]);
-			number = Integer.valueOf(args[2]);
-		} else if (args.length == 4) {
-			rows = Integer.valueOf(args[0]);
-			cols = Integer.valueOf(args[1]);
-			number = Integer.valueOf(args[2]);
-			delay = Integer.valueOf(args[3]);
-		} else {
-			System.out.println("Usage:\n" + "Competition [rows] [cols] [number]:\n"
-					+ "\t\tDefine the row and col of the matrix\n" + "Competition [rows] [cols] [number] [delay]\n"
-					+ "\t\tDefine the row and col of the matrix, and the delay time of each reflesh\n");
+	/**
+	 * 输出case1的矩阵 (3*1)
+	 * 
+	 * @author Victorz & Hollandxp
+	 * 
+	 * @Time2017-6-3
+	 */
+	public static int[][] Generate1Matrix() {
+		int[][] matrix = new int[7][7];
+		for (int i = 2; i < 5; i++) {
+			matrix[3][i] = 1;
 		}
+		return matrix;
+	}
 
-		// System.out.println(rows+","+cols+","+speed);
+	/**
+	 * 输出case2的矩阵 (10*1)
+	 * 
+	 * @author Victorz & Hollandxp
+	 * 
+	 * @Time2017-6-3
+	 */
+	public static int[][] Generate2Matrix() {
+		int[][] matrix = new int[28][14];
+		for (int i = 2; i < 12; i++) {
+			matrix[14][i] = 1;
+		}
+		return matrix;
+	}
+
+	/**
+	 * 输出case3的矩阵 (33*1)
+	 * 
+	 * @author Victorz & Hollandxp
+	 * 
+	 * @Time2017-6-3
+	 */
+	public static int[][] Generate3Matrix() {
+		int[][] matrix = new int[100][50];
+		for (int i = 9; i < 42; i++) {
+			matrix[50][i] = 1;
+		}
+		return matrix;
+	}
+	/**
+	 * 输出case4的矩阵 (41*1)
+	 * 
+	 * @author Victorz & Hollandxp
+	 * 
+	 * @Time2017-6-3
+	 */
+	public static int[][] Generate4Matrix() {
+		int[][] matrix = new int[100][50];
+		for (int i = 3; i < 45; i++) {
+			matrix[50][i] = 1;
+		}
+		return matrix;
+	}
+	/**
+	 * 输出case5的矩阵 (5_3__4)
+	 * 
+	 * @author Victorz & Hollandxp
+	 * 
+	 * @Time2017-6-3
+	 */
+	public static int[][] Generate5Matrix() {
+		int[][] matrix = new int[100][50];
+		for (int i = 18; i < 23; i++) {
+			matrix[50][i] = 1;
+		}
+		for (int i = 24; i < 27; i++) {
+			matrix[50][i] = 1;
+		}
+		for (int i = 29; i < 33; i++) {
+			matrix[50][i] = 1;
+		}
+		return matrix;
+	}
+	/**
+	 * 输出case6的矩阵 (9____10_____3)
+	 * 
+	 * @author Victorz & Hollandxp
+	 * 
+	 * @Time2017-6-3
+	 */
+	public static int[][] Generate6Matrix() {
+		int[][] matrix = new int[50][50];
+		for (int i = 9; i < 18; i++) {
+			matrix[25][i] = 1;
+		}
+		for (int i = 22; i < 32; i++) {
+			matrix[25][i] = 1;
+		}
+		for (int i = 37; i < 40; i++) {
+			matrix[25][i] = 1;
+		}
+		return matrix;
+	}
+	/**
+	 * 输出case7的矩阵 (3___4_12_____3_____10____9)
+	 * 
+	 * @author Victorz & Hollandxp
+	 * 
+	 * @Time2017-6-3
+	 */
+	public static int[][] Generate7Matrix() {
+		int[][] matrix = new int[30][100];
+		for (int i = 19; i < 22; i++) {
+			matrix[15][i] = 1;
+		}
+		for (int i = 25; i < 29; i++) {
+			matrix[15][i] = 1;
+		}
+		for (int i = 30; i < 42; i++) {
+			matrix[15][i] = 1;
+		}
+		for (int i = 47; i < 50; i++) {
+			matrix[15][i] = 1;
+		}
+		for (int i = 55; i < 65; i++) {
+			matrix[15][i] = 1;
+		}
+		for (int i = 70; i < 79; i++) {
+			matrix[15][i] = 1;
+		}
+		return matrix;
+	}
+	/**
+	 * Terminal终端控制
+	 * 
+	 * 用户根据提示输入矩阵的行，列，生命数量以及延迟时间
+	 *
+	 * @author Victorz & Hollandxp
+	 * 
+	 * @Time2017-6-3
+	 */
+	public void MTerminal() throws Exception {
+		int rows = 10, cols = 10, number = 50;
+		int delay = 200;
+		int type = 0;
+		int[][] matrix = new int[1][1];
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("=========================================================");
+		System.out.println("===================The Game of Life======================");
+		System.out.println("Please Choose Mode:");
+		System.out.println("1.(3*1)");
+		System.out.println("2.(10*1)");
+		System.out.println("3.(33*1)");
+		System.out.println("4.(41*1)");
+		System.out.println("5.(5_3__4)");
+		System.out.println("6.(9____10_____3)");
+		System.out.println("7.(3___4_12_____3_____10____9)");
+		System.out.println("8.User-defined");
+		System.out.print("Your choice is :");
+		type = scanner.nextInt();
+		switch (type) {
+		case 1: {
+			rows = 7;
+			cols = 7;
+			delay = 200;
+			matrix = Generate1Matrix();
+			break;
+		}
+		case 2: {
+			rows = 28;
+			cols = 14;
+			delay = 500;
+			matrix = Generate2Matrix();
+			break;
+		}
+		case 3: {
+			rows = 100;
+			cols = 50;
+			delay = 100;
+			matrix = Generate3Matrix();
+			break;
+		}
+		case 4: {
+			rows = 100;
+			cols = 50;
+			delay = 100;
+			matrix = Generate4Matrix();
+			break;
+		}
+		case 5: {
+			rows = 100;
+			cols = 50;
+			delay = 100;
+			matrix = Generate5Matrix();
+			break;
+		}
+		case 6: {
+			rows = 50;
+			cols = 50;
+			delay = 100;
+			matrix = Generate6Matrix();
+			break;
+		}
+		case 7: {
+			rows = 30;
+			cols = 100;
+			delay = 100;
+			matrix = Generate7Matrix();
+			break;
+		}
+		case 8: {
+			System.out.print("Please input the row of the matrix:");
+			rows = scanner.nextInt();
+			System.out.print("Please input the col of the matrix:");
+			cols = scanner.nextInt();
+			System.out.print("Please input the number of life in the matrix:");
+			number = scanner.nextInt();
+			System.out.print("Please input the delay time of each refresh (ms):");
+			delay = scanner.nextInt();
+			matrix = Init(rows, cols);
+			matrix = RandomInit(matrix, rows, cols, number);
+			break;
+		}
+		}
+		scanner.close();
 		// create the terminal
-		terminal = TerminalFacade.createSwingTerminal(cols, rows);
+		terminal = TerminalFacade.createSwingTerminal(rows, cols);
 
 		// required by Lanterna framework to initialise
 		terminal.enterPrivateMode();
@@ -138,13 +438,8 @@ public class Competition {
 			((SwingTerminal) terminal).getJFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
 
-		int[][] matrix = Init(rows, cols);
-		matrix = RandomInit(matrix, rows, cols, number);
-		// System.out.println(matrix[0][0]);
 		while (true) {
 			try {
-				// Print(matrix, rows, cols);
-				// clear();
 				Disp(matrix, rows, cols);
 				Thread.sleep(delay);
 				terminal.clearScreen();
@@ -154,5 +449,9 @@ public class Competition {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public static void main(String[] args) throws Exception {
+		new Competition().MTerminal();
 	}
 }
