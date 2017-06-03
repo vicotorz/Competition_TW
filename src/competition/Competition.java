@@ -99,11 +99,11 @@ public class Competition {
 			for (int j = 0; j < col; j++) {
 				if (matrix[i][j] == 0) {
 					terminal.applyForegroundColor(Terminal.Color.RED);
-					terminal.moveCursor(i, j);
-					terminal.putCharacter(' ');
+					terminal.moveCursor(j, i);
+					terminal.putCharacter('+');
 				} else {
-					terminal.applyForegroundColor(Terminal.Color.BLACK);
-					terminal.moveCursor(i, j);
+					terminal.applyForegroundColor(Terminal.Color.WHITE);
+					terminal.moveCursor(j, i);
 					terminal.putCharacter('*');
 				}
 			}
@@ -124,12 +124,13 @@ public class Competition {
 	 * @Time2017-6-3
 	 */
 	public static void Print(int[][] matrix, int row, int col) {
+		String info = "/u001b[23";
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
 				if (matrix[i][j] == 1)
-					System.out.print('*');
+					System.out.print(info);
 				else
-					System.out.print(' ');
+					System.out.print(" ");
 			}
 			System.out.println();
 		}
@@ -149,6 +150,7 @@ public class Competition {
 		int delay = 200;
 		int type = 0;
 		int[][] matrix = null;
+
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("=========================================================");
 		System.out.println("===================The Game of Life======================");
@@ -186,12 +188,11 @@ public class Competition {
 		delay = CaseFactory.delay;
 
 		// create the terminal
-		terminal = TerminalFacade.createSwingTerminal(rows, cols);
+		terminal = TerminalFacade.createSwingTerminal(cols, rows);
 
 		// required by Lanterna framework to initialise
 		terminal.enterPrivateMode();
 		terminal.setCursorVisible(false);
-		terminal.applyBackgroundColor(Terminal.Color.WHITE);
 		terminal.clearScreen();
 
 		// set close operation so program with exit if "X" clicked
