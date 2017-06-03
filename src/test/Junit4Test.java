@@ -93,7 +93,5 @@ public class Junit4Test {
 		assert Competition.Judge(answer, 3, 2) == 1 : "Test_Judge assertion failed!";
 		assert Competition.Judge(answer, 3, 3) == 1 : "Test_Judge assertion failed!";
 		assert Competition.Judge(answer, 4, 1) == 0 : "Test_Judge assertion failed!";
-
 	}
-
 }
